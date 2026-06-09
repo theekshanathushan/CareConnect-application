@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Cases - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">📁</div>
+                <div class="floating-element element-2">📋</div>
+                <div class="floating-element element-3">🔍</div>
+                <div class="floating-element element-4">📌</div>
+                <div class="floating-element element-5">✅</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Manage Cases</h1>
+                    <p>View, assign, and track assistance cases</p>
+                </div>
+
+                <div class="case-filters">
+                    <div class="filter-card">
+                        <h3>Filter Cases</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="statusFilter">Status</label>
+                                <select id="statusFilter">
+                                    <option value="">All Statuses</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Fulfilled">Resolved</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="priority">Priority</label>
+                                <select id="priority">
+                                    <option value="">All Priorities</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category">
+                                    <option value="">All Categories</option>
+                                    <option value="Food">Food & Nutrition</option>
+                                    <option value="Shelter">Shelter & Housing</option>
+                                    <option value="Medical">Medical Assistance</option>
+                                    <option value="Clothing">Clothing & Essentials</option>
+                                    <option value="Transportation">Transportation</option>
+                                    <option value="Other">Other Needs</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="assigned-to">Assigned To</label>
+                                <select id="assigned-to">
+                                    <option value="">All Officers</option>
+                                    <option value="Unassigned">Unassigned</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button class="btn secondary" id="resetFilters">Reset Filters</button>
+                            <button class="btn primary" id="applyFilters">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cases-container">
+                    <div class="cases-header">
+                        <h2>Active Cases</h2>
+                    </div>
+
+                    <div class="cases-list" id="casesListContainer">
+                        <p style="text-align: center; color: #666; padding: 2rem;">Loading cases...</p>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="btn secondary">Previous</button>
+                        <span class="page-info">Page 1 of 1</span>
+                        <button class="btn secondary">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="caseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-folder-open"></i> <span id="modalTitle">Request Details</span></h2>
+                <div class="header-actions">
+                    <span id="modalStatus" class="status-badge-large Pending">Pending</span>
+                    <span class="close-modal">&times;</span>
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="info-section">
+                    <div class="section-title"><i class="fas fa-user-circle"></i> Applicant Identity</div>
+                    <div class="data-grid">
+                        <div class="data-group">
+                            <label>Full Name</label>
+                            <p id="modalName">-</p>
+                        </div>
+                        <div class="data-group">
+                            <label>Identity Number (NIC)</label>
+                            <p id="modalIdentity" style="font-family: monospace;">-</p>
+                        </div>
+                        <div class="data-group">
+                            <label>Contact Phone</label>
+                            <p id="modalPhone">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="section-title"><i class="fas fa-map-marker-alt"></i> Location & Address</div>
+                    <div class="data-grid">
+                        <div class="data-group">
+                            <label>District</label>
+                            <p id="modalDistrict">-</p>
+                        </div>
+                        <div class="data-group">
+                            <label>Home Town</label>
+                            <p id="modalTown">-</p>
+                        </div>
+                        <div class="data-group" style="grid-column: span 2;">
+                            <label>Address / Home No</label>
+                            <p id="modalAddress">-</p>
+                        </div>
+                        <div class="data-group" style="grid-column: span 2;">
+                            <label>Current Location</label>
+                            <p id="modalCurrentLoc">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="section-title"><i class="fas fa-info-circle"></i> Request Information</div>
+                    <div class="data-grid">
+                        <div class="data-group">
+                            <label>Request Type</label>
+                            <p id="modalType">-</p>
+                        </div>
+                        <div class="data-group">
+                            <label>Urgency</label>
+                            <p id="modalUrgency">-</p>
+                        </div>
+                        <div class="data-group">
+                            <label>Quantity</label>
+                            <p id="modalQuantity">-</p>
+                        </div>
+                        <div class="data-group">
+                            <label>Timeframe</label>
+                            <p id="modalTimeframe">-</p>
+                        </div>
+                        <div class="data-group">
+                            <label>Submitted Date</label>
+                            <p id="modalDate">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="section-title"><i class="fas fa-align-left"></i> Description</div>
+                    <p id="modalDesc" class="description-text">-</p>
+                </div>
+
+                <div class="info-section">
+                    <div class="section-title"><i class="fas fa-camera"></i> Evidence / Damage Photo</div>
+                    <div class="evidence-container" id="modalImageContainer">
+                        <img id="modalImage" src="" alt="Evidence Photo" style="display: none;">
+                        <p id="noImageText" style="color: #94a3b8; font-style: italic;">
+                            <i class="fas fa-image-slash"></i> No photo evidence provided.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn secondary" id="rejectBtn" style="background-color: #ef4444; color: white; border: none;">
+                    <i class="fas fa-times-circle"></i> Reject Request
+                </button>
+                <button class="btn primary" id="approveBtn" style="background-color: #10b981; color: white; border: none;">
+                    <i class="fas fa-check-circle"></i> Approve & Verify
+                </button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/manage-cases.js"></script>
+</body>
+</html>

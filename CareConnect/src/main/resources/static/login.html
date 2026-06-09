@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CareConnect</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero login-hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">❤️</div>
+                <div class="floating-element element-2">🤝</div>
+                <div class="floating-element element-3">🏠</div>
+                <div class="floating-element element-4">🏥</div>
+                <div class="floating-element element-5">📦</div>
+            </div>
+            <div class="form-container">
+                <div class="form-header">
+                    <h1>Welcome Back</h1>
+                    <p>Login to your CareConnect account</p>
+                </div>
+                <form id="login-form" class="styled-form">
+                    <div class="form-group">
+                        <label for="email" class="required">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="required">Password</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                    </div>
+                    <div class="form-options">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn primary btn-block">Sign In</button>
+                </form>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="register.html">Register here</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script type="module">
+    import { CONFIG, apiUtils } from './config.js';
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.getElementById('login-form');
+
+        // --- 1. Form Animation Logic ---
+        const formGroups = document.querySelectorAll('.form-group');
+        formGroups.forEach((group, index) => {
+            group.style.opacity = '0';
+            setTimeout(() => {
+                group.classList.add('animated-form-group');
+                if (index < 5) {
+                    group.classList.add(`delay-${index + 1}`);
+                }
+            }, 100);
+        });
+
+        // --- 2. Input Validation Listeners ---
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        if (emailInput) {
+            emailInput.addEventListener('blur', function() {
+                validateEmail(this.value);
+            });
+        }
+
+        if (passwordInput) {
+            passwordInput.addEventListener('blur', function() {
+                validatePassword(this.value);
+            });
+        }
+
+        // --- 3. Login Submission Logic ---
+        if (loginForm) {
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const submitButton = this.querySelector('button[type="submit"]');
+                const originalText = submitButton.textContent;
+
+                // Validate inputs
+                if (!validateForm(email, password)) {
+                    return;
+                }
+
+                // Set loading state
+                submitButton.textContent = 'Signing In...';
+                submitButton.disabled = true;
+
+                const loginData = { email, password };
+
+                try {
+                    // UPDATED: Use apiUtils for cleaner API calls
+                    const url = apiUtils.getFullUrl(CONFIG.ENDPOINTS.AUTH.LOGIN);
+
+                    // apiUtils.post(url, data, includeAuthToken?) -> false for login
+                    const data = await apiUtils.post(url, loginData, false);
+
+                    // Store user session data
+                    // 'data.token' comes from the backend response logic
+                    localStorage.setItem('authToken', data.token || 'dummy-token');
+                    localStorage.setItem('userRole', data.role);
+                    localStorage.setItem('userName', data.name);
+                    localStorage.setItem('userId', data.id); // Critical for dashboard features
+
+                    alert('Login successful! Redirecting to your dashboard.');
+
+                    // Redirect based on Role
+                    switch(data.role) {
+                        case 'displaced':
+                            window.location.href = 'displaced-person/dashboard.html';
+                            break;
+                        case 'donator':
+                            window.location.href = 'donor/dashboard.html';
+                            break;
+                        case 'government':
+                            window.location.href = 'government-officer/dashboard.html';
+                            break;
+                        case 'admin':
+                            window.location.href = 'admin/dashboard.html';
+                            break;
+                        default:
+                            console.warn('Unknown role:', data.role);
+                            window.location.href = 'index.html';
+                    }
+
+                } catch (error) {
+                    console.error('Login error:', error);
+                    alert('Login failed. Please check your credentials and try again.');
+                } finally {
+                    // Reset button state
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }
+            });
+        }
+
+        // --- 4. Forgot Password Logic ---
+        const forgotPasswordLink = document.querySelector('.forgot-password');
+        if (forgotPasswordLink) {
+            forgotPasswordLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const email = prompt('Please enter your email address:');
+                if (email && validateEmail(email)) {
+                    alert(`Password reset instructions have been sent to ${email}`);
+                } else if (email) {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        }
+
+        // --- Helper Validation Functions ---
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length > 0;
+        }
+
+        function validateForm(email, password) {
+            if (!email) {
+                alert('Please enter your email address.');
+                return false;
+            }
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+            if (!password) {
+                alert('Please enter your password.');
+                return false;
+            }
+            return true;
+        }
+    });
+</script>
+</body>
+</html>

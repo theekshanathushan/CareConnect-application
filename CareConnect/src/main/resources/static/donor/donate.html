@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Donation - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="../donor/dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">🤝</div>
+                <div class="floating-element element-2">❤️</div>
+                <div class="floating-element element-3">🌍</div>
+                <div class="floating-element element-4">🏠</div>
+                <div class="floating-element element-5">👨‍👩‍👧‍👦</div>
+            </div>
+            <div class="hero-content">
+                <h1>Make a Donation</h1>
+                <p>Your generosity can make a real difference in someone's life. Choose how you'd like to contribute.</p>
+            </div>
+        </section>
+
+        <section class="donation-section">
+            <div class="dashboard-container">
+                <div class="donation-options">
+                    <div class="option-card" onclick="showDonationForm('one-time')">
+                        <div class="option-icon">💸</div>
+                        <h3>One-Time Donation</h3>
+                        <p>Make a single contribution to support ongoing relief efforts.</p>
+                        <button class="btn primary option-btn">Donate Now</button>
+                    </div>
+
+                    <div class="option-card" onclick="showDonationForm('monthly')">
+                        <div class="option-icon">📅</div>
+                        <h3>Monthly Subscription</h3>
+                        <p>Provide ongoing support with a recurring monthly donation.</p>
+                        <button class="btn secondary option-btn">Subscribe</button>
+                    </div>
+
+                    <div class="option-card" onclick="showDonationForm('in-kind')">
+                        <div class="option-icon">📦</div>
+                        <h3>In-Kind Donation</h3>
+                        <p>Contribute goods or services instead of monetary donations.</p>
+                        <button class="btn secondary option-btn">Learn More</button>
+                    </div>
+                </div>
+
+                <div class="donation-form-container" id="donationFormContainer" style="display: none;">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h2 id="formTitle">Make Your Donation</h2>
+                            <p>Fill out the form below to complete your donation</p>
+                        </div>
+                        <form id="donationForm" class="styled-form">
+                            <div class="form-group">
+                                <label for="cause">Support Cause</label>
+                                <select id="cause" name="cause" required>
+                                    <option value="">Select a cause</option>
+                                    <option value="Flood Relief">Flood Relief</option>
+                                    <option value="Earthquake Support">Earthquake Support</option>
+                                    <option value="Wildfire Recovery">Wildfire Recovery</option>
+                                    <option value="General Disaster Relief">General Disaster Relief</option>
+                                    <option value="Community Support">Community Support</option>
+                                    <option value="Education Support">Education Support</option>
+                                    <option value="Healthcare Initiative">Healthcare Initiative</option>
+                                    <option value="Elderly Care">Elderly Care</option>
+                                    <option value="Child Welfare">Child Welfare</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="urgency">Urgency Level</label>
+                                <select id="urgency" name="urgency">
+                                    <option value="low">Low Priority</option>
+                                    <option value="medium" selected>Medium Priority</option>
+                                    <option value="high">High Priority</option>
+                                    <option value="emergency">Emergency Response</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone Number (Optional)</label>
+                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address">Address (Optional)</label>
+                                <textarea id="address" name="address" rows="2" placeholder="Enter your address for delivery purposes"></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="donationType">Donation Type</label>
+                                    <select id="donationType" name="donationType" required>
+                                        <option value="">Select donation type</option>
+                                        <option value="Food">Food Supplies</option>
+                                        <option value="Medical">Medical Supplies</option>
+                                        <option value="Clothing">Clothing</option>
+                                        <option value="Shelter">Shelter Support</option>
+                                        <option value="Financial">Financial Contribution</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="amount">Amount (LKR) or Estimated Value</label>
+                                    <input type="number" id="amount" name="amount" min="1" placeholder="Enter amount in LKR" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Personal Message (Optional)</label>
+                                <textarea id="message" name="message" rows="3" placeholder="Add a personal message to accompany your donation"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Donation Visibility</label>
+                                <div class="radio-group">
+                                    <input type="radio" id="visible" name="visibility" value="visible" checked>
+                                    <label for="visible">Show my name publicly</label>
+                                </div>
+                                <div class="radio-group">
+                                    <input type="radio" id="anonymous" name="visibility" value="anonymous">
+                                    <label for="anonymous">Make this donation anonymous</label>
+                                </div>
+                                <div class="radio-group">
+                                    <input type="radio" id="nickname" name="visibility" value="nickname">
+                                    <label for="nickname">Use a nickname (you can specify below)</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="nicknameField" style="display: none;">
+                                <label for="customNickname">Custom Nickname</label>
+                                <input type="text" id="customNickname" name="customNickname" placeholder="Enter your preferred nickname">
+                            </div>
+
+                            <div class="form-options">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="receipt" name="receipt" checked>
+                                    <label for="receipt">Send me a receipt via email</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="updates" name="updates">
+                                    <label for="updates">Keep me updated on how my donation helps</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="newsletter" name="newsletter">
+                                    <label for="newsletter">Subscribe to our newsletter</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="volunteer" name="volunteer">
+                                    <label for="volunteer">I'm interested in volunteering</label>
+                                </div>
+                            </div>
+
+                            <div class="form-buttons">
+                                <button type="button" class="btn secondary" onclick="hideDonationForm()">Cancel</button>
+                                <button type="submit" class="btn primary">Complete Donation</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/donate.js"></script>
+</body>
+</html>

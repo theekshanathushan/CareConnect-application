@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="../donor/dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">🔔</div>
+                <div class="floating-element element-2">📩</div>
+                <div class="floating-element element-3">📢</div>
+                <div class="floating-element element-4">💬</div>
+                <div class="floating-element element-5">🔄</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Notifications</h1>
+                    <p>Stay updated with the latest activities</p>
+                </div>
+
+                <div class="notification-controls">
+                    <div class="controls-card">
+                        <h3>Notification Settings</h3>
+                        <div class="setting-group">
+                            <div class="setting-item">
+                                <label for="email-notifications">Email Notifications</label>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="email-notifications" checked>
+                                    <label for="email-notifications" class="switch-label"></label>
+                                </div>
+                            </div>
+
+                            <div class="setting-item">
+                                <label for="sms-notifications">SMS Notifications</label>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="sms-notifications">
+                                    <label for="sms-notifications" class="switch-label"></label>
+                                </div>
+                            </div>
+
+                            <div class="setting-item">
+                                <label for="push-notifications">Push Notifications</label>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="push-notifications" checked>
+                                    <label for="push-notifications" class="switch-label"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <h4>Notification Types</h4>
+                            <div class="setting-item">
+                                <label for="request-updates">Request Updates</label>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="request-updates" checked>
+                                    <label for="request-updates" class="switch-label"></label>
+                                </div>
+                            </div>
+
+                            <div class="setting-item">
+                                <label for="donation-confirmations">Donation Confirmations</label>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="donation-confirmations" checked>
+                                    <label for="donation-confirmations" class="switch-label"></label>
+                                </div>
+                            </div>
+
+                            <div class="setting-item">
+                                <label for="community-news">Community News</label>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="community-news" checked>
+                                    <label for="community-news" class="switch-label"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-buttons">
+                            <button class="btn secondary">Reset to Defaults</button>
+                            <button class="btn primary">Save Settings</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notifications-container">
+                    <div class="notifications-header">
+                        <h2>Recent Notifications</h2>
+                        <button class="btn secondary" onclick="location.reload()">Refresh</button>
+                    </div>
+
+                    <div class="notifications-list" id="notificationsList">
+                        <p style="text-align: center; color: #666; padding: 2rem;">Loading notifications...</p>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="btn secondary">Previous</button>
+                        <span class="page-info">Page 1 of 1</span>
+                        <button class="btn secondary">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/notifications.js"></script>
+</body>
+</html>

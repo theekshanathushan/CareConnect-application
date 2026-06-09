@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Officer Dashboard - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Specific styles for the Approval Table */
+        .approval-section {
+            margin: 30px 0;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .approval-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .approval-table th {
+            background-color: #f8f9fa;
+            color: #495057;
+            text-align: left;
+            padding: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .approval-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+        .status-badge {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .btn-action {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn-action:hover { transform: scale(1.05); }
+        .btn-approve { background-color: #28a745; color: white; margin-right: 5px; }
+        .btn-reject { background-color: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="../index.html" class="auth-btn" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">🏛️</div>
+                <div class="floating-element element-2">👨‍💼</div>
+                <div class="floating-element element-3">🤝</div>
+                <div class="floating-element element-4">📊</div>
+                <div class="floating-element element-5">📋</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Government Officer Dashboard</h1>
+                    <p>Welcome back, <span id="officerNameDisplay">Officer</span>! Manage and coordinate disaster relief efforts</p>
+                </div>
+
+                <div class="dashboard-summary">
+                    <div class="summary-cards">
+                        <div class="summary-card donation-card">
+                            <div class="card-icon">📋</div>
+                            <div class="card-info">
+                                <h3>Active Cases</h3>
+                                <p class="card-value" id="activeCasesDisplay">0</p>
+                                <p class="card-description">Ongoing assistance</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card people-card">
+                            <div class="card-icon">👥</div>
+                            <div class="card-info">
+                                <h3>People Served</h3>
+                                <p class="card-value" id="peopleServedDisplay">0</p>
+                                <p class="card-description">Individuals assisted</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card requests-card">
+                            <div class="card-icon">✅</div>
+                            <div class="card-info">
+                                <h3>Cases Resolved</h3>
+                                <p class="card-value" id="casesResolvedDisplay">0</p>
+                                <p class="card-description">Total completed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <a href="manage-cases.html" class="action-button primary">
+                            <div class="action-icon">📁</div>
+                            <h3>Manage Cases</h3>
+                            <p>View and assign cases</p>
+                        </a>
+
+                        <a href="live-map.html" class="action-button secondary" style="border: 2px solid #10b981; background: #ecfdf5;">
+                            <div class="action-icon">🗺️</div>
+                            <h3>Live Map</h3>
+                            <p>Track real-time requests</p>
+                        </a>
+
+                        <a href="reports.html" class="action-button secondary">
+                            <div class="action-icon">📊</div>
+                            <h3>Reports</h3>
+                            <p>Generate and view reports</p>
+                        </a>
+
+                        <a href="communications.html" class="action-button secondary">
+                            <span id="msgBadge" class="notification-badge" style="display: none;">0</span>
+                            <div class="action-icon">💬</div>
+                            <h3>Communications</h3>
+                            <p>Coordinate with teams</p>
+                        </a>
+
+                        <a href="resources.html" class="action-button secondary">
+                            <div class="action-icon">📦</div>
+                            <h3>Resource Tracker</h3>
+                            <p>Monitor available resources</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="approval-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2>🛑 Pending Donation Approvals</h2>
+                        <span style="font-size: 0.9em; color: #666;">Auto-updates every 5s</span>
+                    </div>
+
+                    <table class="approval-table">
+                        <thead>
+                        <tr>
+                            <th>Donor Name</th>
+                            <th>Item / Amount</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="donationTableBody">
+                        <tr><td colspan="5" style="text-align:center;">Loading pending donations...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="recent-activity">
+                    <div class="activity-header">
+                        <h2>Recent Activity</h2>
+                        <a href="manage-cases.html" class="view-all">View All</a>
+                    </div>
+                    <div class="activity-list" id="govActivityList">
+                        <p style="text-align: center; color: #666; padding: 2rem;">Loading activity...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/dashboard.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Donation Logic
+        loadPendingDonations();
+        setInterval(loadPendingDonations, 5000);
+
+        // 2. Notification Logic (Unread Messages)
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.id) {
+            fetchUnreadCount(user.id);
+            // Poll every 5 seconds
+            setInterval(() => fetchUnreadCount(user.id), 5000);
+        }
+    });
+
+    // Donation Functions
+    function loadPendingDonations() {
+        fetch('/api/donations?status=PENDING')
+            .then(response => {
+                if (!response.ok) throw new Error("Network response was not ok");
+                return response.json();
+            })
+            .then(data => {
+                const tableBody = document.getElementById('donationTableBody');
+                if(data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#888;">No pending donations found.</td></tr>';
+                    return;
+                }
+                tableBody.innerHTML = '';
+                data.forEach(donation => {
+                    const row = `
+                        <tr>
+                            <td><strong>${donation.donorName}</strong></td>
+                            <td>${donation.item}</td>
+                            <td>${donation.date || 'Today'}</td>
+                            <td><span class="status-badge">PENDING</span></td>
+                            <td>
+                                <button class="btn-action btn-approve" onclick="processDonation(${donation.id}, 'APPROVED')">✓ Approve</button>
+                                <button class="btn-action btn-reject" onclick="processDonation(${donation.id}, 'REJECTED')">✕ Reject</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching donations:', error);
+            });
+    }
+
+    window.processDonation = function(id, newStatus) {
+        if(!confirm(`Are you sure you want to mark this as ${newStatus}?`)) return;
+
+        fetch(`/api/donations/${id}/status`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ status: newStatus })
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert(`Donation successfully ${newStatus}`);
+                    loadPendingDonations();
+                } else {
+                    alert("Failed to update status.");
+                }
+            })
+            .catch(error => console.error('Error updating status:', error));
+    }
+
+    // Notification Function
+    function fetchUnreadCount(userId) {
+        fetch(`/api/messages/unread-count?userId=${userId}`)
+            .then(res => res.json())
+            .then(count => {
+                const badge = document.getElementById('msgBadge');
+                if (count > 0) {
+                    badge.textContent = count > 99 ? '99+' : count;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            })
+            .catch(err => console.error("Error fetching unread messages:", err));
+    }
+</script>
+</body>
+</html>

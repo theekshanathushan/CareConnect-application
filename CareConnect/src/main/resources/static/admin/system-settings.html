@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Settings - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">⚙️</div>
+                <div class="floating-element element-2">🔧</div>
+                <div class="floating-element element-3">🎛️</div>
+                <div class="floating-element element-4">📱</div>
+                <div class="floating-element element-5">🌐</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>System Settings</h1>
+                    <p>Configure and manage application settings</p>
+                </div>
+
+                <div class="settings-container">
+                    <div class="settings-tabs">
+                        <button class="tab-button active" data-tab="general">General</button>
+                        <button class="tab-button" data-tab="notifications">Notifications</button>
+                        <button class="tab-button" data-tab="security">Security</button>
+                        <button class="tab-button" data-tab="appearance">Appearance</button>
+                    </div>
+
+                    <div class="settings-content">
+                        <!-- General Settings Tab -->
+                        <div class="settings-tab active" id="general-tab">
+                            <h2>General Settings</h2>
+                            <div class="form-group">
+                                <label for="site-name">Site Name</label>
+                                <input type="text" id="site-name" value="CareConnect Disaster Relief">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="site-description">Site Description</label>
+                                <textarea id="site-description" rows="3">Connecting those in need with those who can help during disaster relief efforts.</textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="timezone">Timezone</label>
+                                    <select id="timezone">
+                                        <option value="UTC">UTC</option>
+                                        <option value="EST" selected>Eastern Time (EST)</option>
+                                        <option value="CST">Central Time (CST)</option>
+                                        <option value="MST">Mountain Time (MST)</option>
+                                        <option value="PST">Pacific Time (PST)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="language">Default Language</label>
+                                    <select id="language">
+                                        <option value="en" selected>English</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="fr">French</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="maintenance-mode">
+                                    <span class="checkmark"></span>
+                                    Enable Maintenance Mode
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Notifications Settings Tab -->
+                        <div class="settings-tab" id="notifications-tab">
+                            <h2>Notification Settings</h2>
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="email-notifications" checked>
+                                    <span class="checkmark"></span>
+                                    Enable Email Notifications
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="sms-notifications">
+                                    <span class="checkmark"></span>
+                                    Enable SMS Notifications
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="notification-email">Notification Email Address</label>
+                                <input type="email" id="notification-email" value="notifications@careconnect.example.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="notification-frequency">Notification Frequency</label>
+                                <select id="notification-frequency">
+                                    <option value="immediate">Immediate</option>
+                                    <option value="hourly">Hourly Digest</option>
+                                    <option value="daily" selected>Daily Digest</option>
+                                    <option value="weekly">Weekly Summary</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Security Settings Tab -->
+                        <div class="settings-tab" id="security-tab">
+                            <h2>Security Settings</h2>
+                            <div class="form-group">
+                                <label for="session-timeout">Session Timeout (minutes)</label>
+                                <input type="number" id="session-timeout" value="30" min="5" max="120">
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="two-factor-auth">
+                                    <span class="checkmark"></span>
+                                    Require Two-Factor Authentication
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="password-reset" checked>
+                                    <span class="checkmark"></span>
+                                    Allow Password Reset
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password-policy">Password Policy</label>
+                                <select id="password-policy">
+                                    <option value="basic">Basic (8+ characters)</option>
+                                    <option value="standard" selected>Standard (8+ chars, 1 number)</option>
+                                    <option value="strong">Strong (8+ chars, mixed case, numbers, symbols)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Appearance Settings Tab -->
+                        <div class="settings-tab" id="appearance-tab">
+                            <h2>Appearance Settings</h2>
+                            <div class="form-group">
+                                <label for="theme">Theme</label>
+                                <select id="theme">
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                    <option value="auto" selected>Auto (Based on System)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="primary-color">Primary Color</label>
+                                <input type="color" id="primary-color" value="#0066cc">
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="animations" checked>
+                                    <span class="checkmark"></span>
+                                    Enable Animations
+                                </label>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="rounded-corners" checked>
+                                    <span class="checkmark"></span>
+                                    Use Rounded Corners
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-actions">
+                        <button class="btn secondary">Reset to Defaults</button>
+                        <button class="btn primary">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script src="js/system-settings.js"></script>
+</body>
+</html>

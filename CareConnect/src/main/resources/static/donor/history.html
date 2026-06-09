@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My History - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="../donor/dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">📊</div>
+                <div class="floating-element element-2">📜</div>
+                <div class="floating-element element-3">🏆</div>
+                <div class="floating-element element-4">📈</div>
+                <div class="floating-element element-5">🎯</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>My History</h1>
+                    <p>Review your past donations and contributions to the community</p>
+                </div>
+
+                <div class="history-summary">
+                    <div class="summary-cards">
+                        <div class="summary-card donation-card">
+                            <div class="card-icon">💰</div>
+                            <div class="card-info">
+                                <h3>Total Donations</h3>
+                                <p class="card-value" id="totalDonationsDisplay">0</p>
+                                <p class="card-description">Contributions made</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card people-card">
+                            <div class="card-icon">👥</div>
+                            <div class="card-info">
+                                <h3>People Helped</h3>
+                                <p class="card-value" id="peopleHelpedDisplay">0</p>
+                                <p class="card-description">Individuals supported</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card requests-card">
+                            <div class="card-icon">📋</div>
+                            <div class="card-info">
+                                <h3>Requests Fulfilled</h3>
+                                <p class="card-value" id="requestsFulfilledDisplay">0</p>
+                                <p class="card-description">Successful matches</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-filters">
+                    <div class="filter-card">
+                        <h3>Filter History</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="history-type">Type</label>
+                                <select id="history-type">
+                                    <option value="">All Types</option>
+                                    <option value="donation">Financial Donations</option>
+                                    <option value="inkind">In-Kind Donations</option>
+                                    <option value="volunteer">Volunteer Work</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="history-date">Date Range</label>
+                                <select id="history-date">
+                                    <option value="">All Time</option>
+                                    <option value="year">This Year</option>
+                                    <option value="quarter">Last 3 Months</option>
+                                    <option value="month">This Month</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button class="btn secondary">Reset Filters</button>
+                            <button class="btn primary">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-container">
+                    <h2>Donation History</h2>
+                    <div class="history-list" id="historyList">
+                        <p style="text-align: center; color: #666; padding: 2rem;">Loading history...</p>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="btn secondary">Previous</button>
+                        <span class="page-info">Page 1 of 1</span>
+                        <button class="btn secondary">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/history.js"></script>
+</body>
+</html>

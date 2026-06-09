@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="../index.html" class="auth-btn" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">❤️</div>
+                <div class="floating-element element-2">🤝</div>
+                <div class="floating-element element-3">🏠</div>
+                <div class="floating-element element-4">🏥</div>
+                <div class="floating-element element-5">📦</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Donor Dashboard</h1>
+                    <p>Welcome back, <span id="userNameDisplay">Donor</span>! Thank you for your continued support.</p>
+                </div>
+
+                <div class="dashboard-summary">
+                    <div class="summary-cards">
+                        <div class="summary-card donation-card">
+                            <div class="card-icon">💰</div>
+                            <div class="card-info">
+                                <h3>Total Donations</h3>
+                                <p class="card-value" id="totalDonationsDisplay">0</p>
+                                <p class="card-description">Contributions made</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card people-card">
+                            <div class="card-icon">👥</div>
+                            <div class="card-info">
+                                <h3>People Helped</h3>
+                                <p class="card-value" id="peopleHelpedDisplay">0</p>
+                                <p class="card-description">Individuals supported</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card requests-card">
+                            <div class="card-icon">📋</div>
+                            <div class="card-info">
+                                <h3>Current Requests</h3>
+                                <p class="card-value" id="activeRequestsDisplay">0</p>
+                                <p class="card-description">Active opportunities</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <h2>Your Impact</h2>
+                        <div class="progress-container">
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Monthly Goal</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%"></div>
+                                </div>
+                            </div>
+
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Community Reach</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>New Requests</span>
+                                    <span>45%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <a href="donate.html" class="action-button primary">
+                            <div class="action-icon">💸</div>
+                            <h3>Make a Donation</h3>
+                            <p>Support current relief efforts</p>
+                        </a>
+
+                        <a href="view-request.html" class="action-button secondary">
+                            <div class="action-icon">📋</div>
+                            <h3>View Requests</h3>
+                            <p>Browse current donation requests</p>
+                        </a>
+
+                        <a href="history.html" class="action-button secondary">
+                            <div class="action-icon">📊</div>
+                            <h3>My History</h3>
+                            <p>See your past contributions</p>
+                        </a>
+
+                        <a href="notifications.html" class="action-button secondary">
+                            <span id="msgBadge" class="notification-badge" style="display: none;">0</span>
+                            <div class="action-icon">🔔</div>
+                            <h3>Notifications</h3>
+                            <p>Stay updated on requests</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <div class="activity-header">
+                        <h2>Recent Activity</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="activity-list" id="recentActivityList">
+                        <div style="text-align: center; padding: 2rem; color: #666;">
+                            <p>Loading recent activity...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/dashboard.js"></script>
+
+<script>
+    // --- Notification Logic (Unread Messages) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.id) {
+            // Check immediately on load
+            fetchUnreadCount(user.id);
+            // Poll every 5 seconds
+            setInterval(() => fetchUnreadCount(user.id), 5000);
+        }
+    });
+
+    function fetchUnreadCount(userId) {
+        fetch(`/api/messages/unread-count?userId=${userId}`)
+            .then(res => res.json())
+            .then(count => {
+                const badge = document.getElementById('msgBadge');
+                if (count > 0) {
+                    badge.textContent = count > 99 ? '99+' : count;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            })
+            .catch(err => console.error("Error fetching unread messages:", err));
+    }
+</script>
+</body>
+</html>

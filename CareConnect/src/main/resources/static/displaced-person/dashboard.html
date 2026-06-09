@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Displaced Person Dashboard - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="../index.html" class="auth-btn" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">🏠</div>
+                <div class="floating-element element-2">👨‍👩‍👧‍👦</div>
+                <div class="floating-element element-3">🤝</div>
+                <div class="floating-element element-4">❤️</div>
+                <div class="floating-element element-5">📋</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Displaced Person Dashboard</h1>
+                    <p>Welcome back, <span id="userNameDisplay">User</span>! We're here to help you through this difficult time.</p>
+                </div>
+
+                <div class="dashboard-summary">
+                    <div class="summary-cards">
+                        <div class="summary-card donation-card">
+                            <div class="card-icon">📋</div>
+                            <div class="card-info">
+                                <h3>Active Requests</h3>
+                                <p class="card-value" id="activeRequestsDisplay">0</p>
+                                <p class="card-description">Current needs</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card people-card">
+                            <div class="card-icon">🤝</div>
+                            <div class="card-info">
+                                <h3>Helpers Assigned</h3>
+                                <p class="card-value" id="helpersAssignedDisplay">0</p>
+                                <p class="card-description">Support team members</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card requests-card">
+                            <div class="card-icon">✅</div>
+                            <div class="card-info">
+                                <h3>Requests Fulfilled</h3>
+                                <p class="card-value" id="requestsFulfilledDisplay">0</p>
+                                <p class="card-description">Successfully completed</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <h2>Your Recovery Progress</h2>
+                        <div class="progress-container">
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Immediate Needs</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                            </div>
+
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Short-term Goals</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%"></div>
+                                </div>
+                            </div>
+
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Long-term Stability</span>
+                                    <span>40%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <a href="request-help.html" class="action-button primary">
+                            <div class="action-icon">➕</div>
+                            <h3>Request Help</h3>
+                            <p>Submit a new request</p>
+                        </a>
+
+                        <a href="my-requests.html" class="action-button secondary">
+                            <div class="action-icon">📋</div>
+                            <h3>My Requests</h3>
+                            <p>View your requests</p>
+                        </a>
+
+                        <a href="messages.html" class="action-button secondary">
+                            <span id="msgBadge" class="notification-badge" style="display: none;">0</span>
+                            <div class="action-icon">💬</div>
+                            <h3>Messages</h3>
+                            <p>Communicate with helpers</p>
+                        </a>
+
+                        <a href="resources.html" class="action-button secondary">
+                            <div class="action-icon">📚</div>
+                            <h3>Resources</h3>
+                            <p>Helpful information</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <div class="activity-header">
+                        <h2>Recent Activity</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="activity-list" id="recentRequestsList">
+                        <div style="text-align: center; padding: 2rem; color: #666;">
+                            <p>Loading recent activity...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/dashboard.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.id) {
+            // Check immediately on load
+            fetchUnreadCount(user.id);
+            // Poll every 5 seconds for new messages
+            setInterval(() => fetchUnreadCount(user.id), 5000);
+        }
+    });
+
+    function fetchUnreadCount(userId) {
+        fetch(`/api/messages/unread-count?userId=${userId}`)
+            .then(res => res.json())
+            .then(count => {
+                const badge = document.getElementById('msgBadge');
+                if (count > 0) {
+                    badge.textContent = count > 99 ? '99+' : count;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            })
+            .catch(err => console.error("Error fetching unread messages:", err));
+    }
+</script>
+</body>
+</html>

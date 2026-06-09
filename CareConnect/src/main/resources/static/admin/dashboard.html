@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="../index.html" class="auth-btn" id="logoutBtn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">👑</div>
+                <div class="floating-element element-2">📊</div>
+                <div class="floating-element element-3">👥</div>
+                <div class="floating-element element-4">⚙️</div>
+                <div class="floating-element element-5">📈</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Admin Dashboard</h1>
+                    <p>Welcome back, <span id="adminNameDisplay">Admin</span>! Manage and oversee all system activities</p>
+                </div>
+
+                <div class="dashboard-summary">
+                    <div class="summary-cards">
+                        <div class="summary-card donation-card">
+                            <div class="card-icon">👥</div>
+                            <div class="card-info">
+                                <h3>Total Users</h3>
+                                <p class="card-value" id="totalUsersDisplay">0</p>
+                                <p class="card-description">Registered accounts</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card people-card">
+                            <div class="card-icon">📋</div>
+                            <div class="card-info">
+                                <h3>Active Cases</h3>
+                                <p class="card-value" id="activeCasesDisplay">0</p>
+                                <p class="card-description">Ongoing assistance</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card requests-card">
+                            <div class="card-icon">🎁</div>
+                            <div class="card-info">
+                                <h3>Total Donations</h3>
+                                <p class="card-value" id="resourcesDisplay">0</p>
+                                <p class="card-description">Contributions received</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <h2>System Activity Overview</h2>
+                        <div class="progress-container">
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>System Uptime</span>
+                                    <span id="uptimeDisplay">99.9%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 99.8%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Administration Tools</h2>
+                    <div class="actions-grid">
+                        <a href="user-management.html" class="action-button primary">
+                            <div class="action-icon">👥</div>
+                            <h3>User Management</h3>
+                            <p>Manage all user accounts</p>
+                        </a>
+
+                        <a href="reports.html" class="action-button secondary">
+                            <div class="action-icon">📊</div>
+                            <h3>System Reports</h3>
+                            <p>View and download reports</p>
+                        </a>
+
+                        <a href="system-settings.html" class="action-button secondary">
+                            <div class="action-icon">⚙️</div>
+                            <h3>System Settings</h3>
+                            <p>Configure application</p>
+                        </a>
+
+                        <a href="activity-log.html" class="action-button secondary">
+                            <div class="action-icon">📝</div>
+                            <h3>Activity Log</h3>
+                            <p>View system events</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <div class="activity-header">
+                        <h2>Recent System Activity</h2>
+                        <a href="activity-log.html" class="view-all">View All</a>
+                    </div>
+                    <div class="activity-list" id="adminActivityList">
+                        <p style="text-align: center; color: #666; padding: 2rem;">Loading activity...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

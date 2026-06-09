@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Reports - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">📊</div>
+                <div class="floating-element element-2">📈</div>
+                <div class="floating-element element-3">📋</div>
+                <div class="floating-element element-4">📉</div>
+                <div class="floating-element element-5">📌</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>System Reports</h1>
+                    <p>Generate and download detailed system reports</p>
+                </div>
+
+                <div class="report-filters">
+                    <div class="filter-card">
+                        <h3>Generate Report</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="report-type">Report Type</label>
+                                <select id="report-type">
+                                    <option value="">Select Report Type</option>
+                                    <option value="Activity">User Activity Summary</option>
+                                    <option value="Resource">Resource Utilization</option>
+                                    <option value="Case">Case Management</option>
+                                    <option value="Financial">Financial Summary</option>
+                                    <option value="Performance">System Performance</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="time-period">Time Period</label>
+                                <select id="time-period">
+                                    <option value="">Select Time Period</option>
+                                    <option value="Daily">Daily</option>
+                                    <option value="Weekly">Weekly</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Yearly">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row" id="custom-date-fields" style="display: none;">
+                            <div class="form-group">
+                                <label for="start-date">Start Date</label>
+                                <input type="date" id="start-date">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="end-date">End Date</label>
+                                <input type="date" id="end-date">
+                            </div>
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button class="btn secondary" id="resetBtn">Reset</button>
+                            <button class="btn primary" id="generateBtn">Generate Report</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reports-container">
+                    <div class="reports-header">
+                        <h2>Available Reports</h2>
+                        <button class="btn secondary" id="exportAllBtn">Export All CSV</button>
+                    </div>
+
+                    <div class="reports-list" id="reportsListContainer">
+                        <p style="text-align: center; color: #666; padding: 2rem;">Select a report type and click "Generate" to see results.</p>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="btn secondary">Previous</button>
+                        <span class="page-info">Page 1 of 1</span>
+                        <button class="btn secondary">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="viewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:white; width: 85%; max-width: 1000px; max-height: 85vh; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: flex; flex-direction: column;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                <h3 id="modalTitle" style="margin:0; color:#2c3e50;">Report View</h3>
+                <button onclick="document.getElementById('viewModal').style.display='none'" style="border:none; background:none; font-size:2rem; cursor:pointer; color:#666;">&times;</button>
+            </div>
+
+            <div id="modalContent" style="overflow-y: auto; flex-grow: 1; margin-bottom: 15px;">
+                <p style="text-align:center;">Loading data...</p>
+            </div>
+
+            <div style="text-align:right;">
+                <button class="btn secondary" onclick="document.getElementById('viewModal').style.display='none'">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/reports.js"></script>
+</body>
+</html>

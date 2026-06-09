@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">📚</div>
+                <div class="floating-element element-2">📖</div>
+                <div class="floating-element element-3">📋</div>
+                <div class="floating-element element-4">📝</div>
+                <div class="floating-element element-5">🔗</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Helpful Resources</h1>
+                    <p>Access important information and guides to help you during this time</p>
+                </div>
+
+                <div class="resources-container">
+                    <div class="resource-categories">
+                        <div class="category-card">
+                            <div class="category-icon">🏠</div>
+                            <h3>Housing & Shelter</h3>
+                            <p>Information about temporary housing options and shelter resources</p>
+                            <button class="btn secondary filter-btn" data-category="housing">View Resources</button>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="category-icon">⚕️</div>
+                            <h3>Health & Medical</h3>
+                            <p>Guides to accessing medical care and mental health support</p>
+                            <button class="btn secondary filter-btn" data-category="medical">View Resources</button>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="category-icon">💼</div>
+                            <h3>Employment & Benefits</h3>
+                            <p>Information about unemployment benefits and job placement services</p>
+                            <button class="btn secondary filter-btn" data-category="employment">View Resources</button>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="category-icon">🎓</div>
+                            <h3>Education & Children</h3>
+                            <p>Resources for continuing education and child care services</p>
+                            <button class="btn secondary filter-btn" data-category="education">View Resources</button>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="category-icon">⚖️</div>
+                            <h3>Legal Assistance</h3>
+                            <p>Guidance on legal rights and access to free legal aid</p>
+                            <button class="btn secondary filter-btn" data-category="legal">View Resources</button>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="category-icon">🏦</div>
+                            <h3>Financial Aid</h3>
+                            <p>Information about financial assistance programs and grants</p>
+                            <button class="btn secondary filter-btn" data-category="financial">View Resources</button>
+                        </div>
+
+                        <div class="category-card" style="background-color: #f8f9fa;">
+                            <div class="category-icon">🔄</div>
+                            <h3>All Resources</h3>
+                            <p>Browse all available resources in our database</p>
+                            <button class="btn secondary filter-btn" data-category="all">View All</button>
+                        </div>
+                    </div>
+
+                    <div class="featured-resources">
+                        <h2 id="gridTitle">All Resources</h2>
+                        <div class="resources-grid" id="resourcesGrid">
+                            <p style="text-align: center; color: #666; grid-column: 1/-1; padding: 2rem;">Loading resources...</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-section">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <h3>How do I apply for emergency housing assistance?</h3>
+                                <p>You can apply through our Request Help form, selecting "Shelter & Housing" as your request type. Our team will review your application and contact you within 24 hours.</p>
+                            </div>
+
+                            <div class="faq-item">
+                                <h3>What documents do I need to apply for financial aid?</h3>
+                                <p>You'll typically need identification, proof of residence, and documentation of your losses. Our Financial Aid resource guide provides a complete checklist.</p>
+                            </div>
+
+                            <div class="faq-item">
+                                <h3>How long does it take to process benefit applications?</h3>
+                                <p>Processing times vary by program, but emergency applications are typically processed within 3-5 business days. You'll receive updates throughout the process.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="resourceModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Resource Title</h2>
+            <div class="modal-body">
+                <p><strong>Type:</strong> <span id="modalType">Type</span></p>
+                <p><strong>Description:</strong> <span id="modalDesc">Desc</span></p>
+                <p><strong>Quantity Available:</strong> <span id="modalQty">0</span></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn primary" id="modalRequestBtn">Request This Resource</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/resources.js"></script>
+</body>
+</html>

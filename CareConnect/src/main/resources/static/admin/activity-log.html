@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Log - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Table Styles for Logs */
+        .log-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 0.95rem;
+        }
+        .log-table th {
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .log-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            color: #555;
+            vertical-align: middle;
+        }
+        .log-table tr:hover {
+            background-color: #f1f3f5;
+        }
+
+        /* Badges for Roles */
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .badge-admin { background-color: #ffebee; color: #c62828; }
+        .badge-gov { background-color: #e3f2fd; color: #1565c0; }
+        .badge-donor { background-color: #e8f5e9; color: #2e7d32; }
+        .badge-user { background-color: #f3e5f5; color: #7b1fa2; }
+        .badge-default { background-color: #eee; color: #666; }
+
+        /* Form Controls */
+        .form-control {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">📝</div>
+                <div class="floating-element element-2">🕒</div>
+                <div class="floating-element element-3">📋</div>
+                <div class="floating-element element-4">🔍</div>
+                <div class="floating-element element-5">📌</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Activity Log</h1>
+                    <p>View all system events and user activities</p>
+                </div>
+
+                <div class="log-filters">
+                    <div class="filter-card">
+                        <h3>Filter Activity</h3>
+                        <div class="form-row">
+
+                            <div class="form-group" style="flex: 1;">
+                                <label for="roleFilter">User Role</label>
+                                <select id="roleFilter" class="form-control">
+                                    <option value="">All Roles</option>
+                                    <option value="ADMIN">Administrator</option>
+                                    <option value="GOVERNMENT">Government Officer</option>
+                                    <option value="DONOR">Donor</option>
+                                    <option value="DISPLACED">Displaced Person</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="flex: 1;">
+                                <label for="dateFilter">Specific Date</label>
+                                <input type="date" id="dateFilter" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button id="resetFiltersBtn" class="btn secondary">Reset Filters</button>
+                            <button id="applyFiltersBtn" class="btn primary">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logs-container">
+                    <div class="logs-header">
+                        <h2>System Activity</h2>
+                    </div>
+
+                    <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow: hidden;">
+                        <table class="log-table">
+                            <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>User</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                                <th>Details</th>
+                            </tr>
+                            </thead>
+                            <tbody id="activityLogBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 30px; color: #888;">
+                                    Loading activity logs...
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="btn secondary" disabled>Previous</button>
+                        <span class="page-info">Showing latest results</span>
+                        <button class="btn secondary" disabled>Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/activity-log.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Requests - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* MODAL STYLES */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-label { font-weight: 600; color: #555; }
+        .detail-value { font-weight: 400; color: #000; text-align: right; }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .status-pending { background-color: #ffeeba; color: #856404; }
+        .status-approved { background-color: #d4edda; color: #155724; }
+        .status-rejected { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>My Requests</h1>
+                    <p>Track the status of your assistance applications</p>
+                </div>
+
+                <div class="requests-list-container" id="requestsList">
+                    <p style="text-align: center; padding: 2rem;">Loading your requests...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="margin-bottom: 1.5rem; color: #007bff;">Request Details</h2>
+
+            <div class="detail-row">
+                <span class="detail-label">Request Type:</span>
+                <span class="detail-value" id="modalType">--</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Status:</span>
+                <span id="modalStatus" class="status-badge">--</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date Submitted:</span>
+                <span class="detail-value" id="modalDate">--</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Description:</span>
+            </div>
+            <p id="modalDesc" style="background:#f9f9f9; padding:10px; border-radius:5px; margin-top:5px; color:#333;">--</p>
+
+            <div class="modal-actions" style="margin-top: 1.5rem; text-align: right;">
+                <button class="btn secondary close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/my-requests.js"></script>
+</body>
+</html>

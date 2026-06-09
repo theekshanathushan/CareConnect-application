@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Tracker - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* MODAL CSS (Fixed for scrolling) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enables scrolling */
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto; /* Starts higher up */
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 5rem; /* Space at bottom */
+        }
+
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .close { cursor: pointer; font-size: 1.5rem; font-weight: bold; }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; }
+
+        .modal-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
+
+        /* Action Buttons Grid */
+        .resource-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .btn.danger { background-color: #dc3545; color: white; border: none; }
+        .btn.danger:hover { background-color: #c82333; }
+        .btn.edit { background-color: #ffc107; color: #000; border: none; }
+        .btn.edit:hover { background-color: #e0a800; }
+    </style>
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="../index.html" class="auth-btn" onclick="localStorage.clear()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Resource Tracker</h1>
+                    <p>Monitor and manage available resources</p>
+                </div>
+
+                <div class="resource-filters">
+                    <div class="filter-card">
+                        <h3>Filter Resources</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select id="resource-type">
+                                    <option value="">All Types</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Medical">Medical</option>
+                                    <option value="Shelter">Shelter</option>
+                                    <option value="Clothing">Clothing</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Warehouse</label>
+                                <select id="warehouse">
+                                    <option value="">All Warehouses</option>
+                                    <option value="Central">Central</option>
+                                    <option value="North">North</option>
+                                    <option value="South">South</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="btn secondary" id="resetFilters">Reset</button>
+                            <button class="btn primary" id="applyFilters">Apply</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resources-container">
+                    <div class="resources-header">
+                        <h2>Resource Inventory</h2>
+                        <div class="header-actions">
+                            <button class="btn primary" id="addResourceBtn">Add New Resource</button>
+                        </div>
+                    </div>
+
+                    <div class="resources-list" id="resourceInventoryList">
+                        <p style="text-align: center;">Loading inventory...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="resourceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Resource</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="resourceForm">
+                <input type="hidden" id="resId">
+
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="resTitle" required placeholder="e.g. Rice Bags">
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <select id="resType" required>
+                        <option value="Food">Food</option>
+                        <option value="Medical">Medical</option>
+                        <option value="Shelter">Shelter</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" id="resQuantity" required min="0">
+                </div>
+                <div class="form-group">
+                    <label>Warehouse</label>
+                    <select id="resWarehouse" required>
+                        <option value="Central">Central</option>
+                        <option value="North">North</option>
+                        <option value="South">South</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="resDesc" rows="2"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn secondary close-btn">Cancel</button>
+                    <button type="submit" class="btn primary">Save Resource</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/resources.js"></script>
+</body>
+</html>

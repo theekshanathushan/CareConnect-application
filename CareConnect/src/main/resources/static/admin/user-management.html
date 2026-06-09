@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - CareConnect</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div id="root">
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="../logo.svg" alt="CareConnect Logo" class="logo-img">
+                <span class="logo-text">CareConnect</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#services">Services</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="dashboard.html" class="auth-btn">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="animation-elements">
+                <div class="floating-element element-1">👥</div>
+                <div class="floating-element element-2">👤</div>
+                <div class="floating-element element-3">📋</div>
+                <div class="floating-element element-4">🔍</div>
+                <div class="floating-element element-5">⚙️</div>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>User Management</h1>
+                    <p>Manage all user accounts in the system</p>
+                </div>
+
+                <div class="user-filters">
+                    <div class="filter-card">
+                        <h3>Filter Users</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="user-role">User Role</label>
+                                <select id="user-role">
+                                    <option value="">All Roles</option>
+                                    <option value="admin">Administrator</option>
+                                    <option value="government">Government Officer</option>
+                                    <option value="displaced">Displaced Person</option>
+                                    <option value="donator">Donator</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user-status">Account Status</label>
+                                <select id="user-status">
+                                    <option value="">All Statuses</option>
+                                    <option value="active">Active</option>
+                                    <option value="suspended">Suspended</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="search-user">Search Users</label>
+                                <input type="text" id="search-user" placeholder="Search by name or email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="registration-date">Registration Date</label>
+                                <select id="registration-date">
+                                    <option value="">Any Date</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                    <option value="year">This Year</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button class="btn secondary">Reset Filters</button>
+                            <button class="btn primary">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="users-container">
+                    <div class="users-header">
+                        <h2>User Accounts</h2>
+                        <button class="btn primary">Add New User</button>
+                    </div>
+
+                    <div class="users-list" id="userListContainer">
+                        <p style="text-align: center; color: #666; padding: 2rem;">Loading users...</p>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="btn secondary">Previous</button>
+                        <span class="page-info">Page 1 of 1</span>
+                        <button class="btn secondary">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 CareConnect. Helping communities recover together.</p>
+    </footer>
+</div>
+
+<script src="../script.js"></script>
+<script type="module" src="js/user-management.js"></script>
+</body>
+</html>
